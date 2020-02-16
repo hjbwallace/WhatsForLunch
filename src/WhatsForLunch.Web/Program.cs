@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Text;
-using Microsoft.AspNetCore.Blazor.Hosting;
+﻿using Microsoft.AspNetCore.Blazor.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using System.Threading.Tasks;
+using WhatsForLunch.Web.Services;
 
 namespace WhatsForLunch.Web
 {
@@ -13,6 +11,8 @@ namespace WhatsForLunch.Web
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("app");
+
+            builder.Services.AddSingleton<AppState>();
 
             await builder.Build().RunAsync();
         }

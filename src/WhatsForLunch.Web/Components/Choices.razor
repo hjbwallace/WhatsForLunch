@@ -1,0 +1,46 @@
+﻿@if (CurrentChoices != null)
+{
+    <div class="row py-3">
+        <ul class="list-group">
+            @foreach (var choice in CurrentChoices)
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    @choice.Key
+                    <div class=" px-3">
+                        <span class="badge badge-primary badge-pill">@choice.Value</span>
+                    </div>
+                    <button @onclick="@(() => OnRemoveChoice.InvokeAsync(choice.Key))" class="badge badge-pill badge-danger btn shadow-none">Remove</button>
+                </li>
+            }
+        </ul>
+    </div>
+}
+
+<div class="row">
+    <input placeholder="Choice" @bind="newChoice" />
+    <input placeholder="Weighting" @bind="newChoiceWeighting" />
+    <button @onclick="AddNewChoice" type="button" class="btn btn-success px-5 search-submit">Add</button>
+</div>
+
+@code {
+    private string newChoice;
+    private int? newChoiceWeighting;
+
+    [Parameter]
+    public IDictionary<string, int> CurrentChoices { get; set; } = new Dictionary<string, int>();
+
+    [Parameter]
+    public EventCallback<KeyValuePair<string, int>> OnAddChoice { get; set; }
+
+    [Parameter]
+    public EventCallback<string> OnRemoveChoice { get; set; }
+
+    private async Task AddNewChoice()
+    {
+        var pair = new KeyValuePair<string, int>(newChoice, newChoiceWeighting ?? 0);
+        newChoice = "";
+        newChoiceWeighting = null;
+
+        await OnAddChoice.InvokeAsync(pair);
+    }
+}
