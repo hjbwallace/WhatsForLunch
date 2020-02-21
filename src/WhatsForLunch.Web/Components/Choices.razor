@@ -5,11 +5,11 @@
             @foreach (var choice in CurrentChoices)
             {
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    @choice.Key
+                    @choice.Name
                     <div class=" px-3">
-                        <span class="badge badge-primary badge-pill">@choice.Value</span>
+                        <span class="badge badge-primary badge-pill">@choice.Weighting</span>
                     </div>
-                    <button @onclick="@(() => OnRemoveChoice.InvokeAsync(choice.Key))" class="badge badge-pill badge-danger btn shadow-none">Remove</button>
+                    <button @onclick="@(() => OnRemoveChoice.InvokeAsync(choice))" class="badge badge-pill badge-danger btn shadow-none">Remove</button>
                 </li>
             }
         </ul>
@@ -27,20 +27,20 @@
     private int? newChoiceWeighting;
 
     [Parameter]
-    public IDictionary<string, int> CurrentChoices { get; set; } = new Dictionary<string, int>();
+    public IList<Choice> CurrentChoices { get; set; } = new List<Choice>();
 
     [Parameter]
-    public EventCallback<KeyValuePair<string, int>> OnAddChoice { get; set; }
+    public EventCallback<Choice> OnAddChoice { get; set; }
 
     [Parameter]
-    public EventCallback<string> OnRemoveChoice { get; set; }
+    public EventCallback<Choice> OnRemoveChoice { get; set; }
 
     private async Task AddNewChoice()
     {
-        var pair = new KeyValuePair<string, int>(newChoice, newChoiceWeighting ?? 0);
+        var choice = new Choice { Name = newChoice, Weighting = newChoiceWeighting ?? 0 };
         newChoice = "";
         newChoiceWeighting = null;
 
-        await OnAddChoice.InvokeAsync(pair);
+        await OnAddChoice.InvokeAsync(choice);
     }
 }

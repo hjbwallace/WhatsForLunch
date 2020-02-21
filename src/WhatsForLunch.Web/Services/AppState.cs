@@ -17,10 +17,11 @@ namespace WhatsForLunch.Web.Services
 
         public event Action OnChange;
 
-        public IDictionary<string, int> Choices { get; private set; } = new Dictionary<string, int>
+        public IList<Choice> Choices { get; private set; } = new List<Choice>
         {
-            ["Option 1"] = 1,
-            ["Option 2"] = 2
+            new Choice { Name = "Option 1", Weighting = 1 },
+            new Choice { Name = "Option 2", Weighting = 2 },
+            new Choice { Name = "Option 3", Weighting = 3 },
         };
 
         public string CurrentChoice { get; private set; }
@@ -38,13 +39,16 @@ namespace WhatsForLunch.Web.Services
             await Task.CompletedTask;
         }
 
-        public void AddChoice(KeyValuePair<string, int> choice)
+        public void AddChoice(Choice choice)
         {
+            if (Choices.Any(x => x.Name == choice.Name))
+                return;
+
             Choices.Add(choice);
             NotifyStateChanged();
         }
 
-        public void RemoveChoice(string choice)
+        public void RemoveChoice(Choice choice)
         {
             Choices.Remove(choice);
             NotifyStateChanged();
