@@ -17,12 +17,7 @@ namespace WhatsForLunch.Web.Services
 
         public event Action OnChange;
 
-        public IList<Choice> Choices { get; private set; } = new List<Choice>
-        {
-            new Choice { Name = "Option 1", Weighting = 1 },
-            new Choice { Name = "Option 2", Weighting = 2 },
-            new Choice { Name = "Option 3", Weighting = 3 },
-        };
+        public IList<Choice> Choices { get; private set; } = new List<Choice>();
 
         public string CurrentChoice { get; private set; }
 
