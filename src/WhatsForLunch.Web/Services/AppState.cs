@@ -2,11 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WhatsForLunch.Core;
 
 namespace WhatsForLunch.Web.Services
 {
     public class AppState
     {
+        private readonly IChoiceService _choiceService;
+
+        public AppState(IChoiceService choiceService)
+        {
+            _choiceService = choiceService;
+        }
+
         public event Action OnChange;
 
         public IDictionary<string, int> Choices { get; private set; } = new Dictionary<string, int>
@@ -22,7 +30,7 @@ namespace WhatsForLunch.Web.Services
             if (Choices?.Any() != true)
                 return;
 
-            CurrentChoice = Choices.Keys.OrderBy(x => Guid.NewGuid()).First();
+            CurrentChoice = _choiceService.MakeChoice(Choices);
             Console.WriteLine($"Made choice: {CurrentChoice}");
 
             NotifyStateChanged();

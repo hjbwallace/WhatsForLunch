@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Blazor.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
+using WhatsForLunch.Core;
 using WhatsForLunch.Web.Services;
 
 namespace WhatsForLunch.Web
@@ -13,6 +14,7 @@ namespace WhatsForLunch.Web
             builder.RootComponents.Add<App>("app");
 
             builder.Services.AddSingleton<AppState>();
+            builder.Services.AddSingleton<IChoiceService, ChoiceService>();
 
             await builder.Build().RunAsync();
         }
