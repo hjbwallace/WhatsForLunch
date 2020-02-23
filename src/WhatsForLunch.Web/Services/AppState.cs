@@ -21,6 +21,11 @@ namespace WhatsForLunch.Web.Services
 
         public string CurrentChoice { get; private set; }
 
+        public async Task GetExistingChoicesAsync()
+        {
+            Choices = (await _choiceService.GetExistingChoicesAsync())?.ToList() ?? new List<Choice>();
+        }
+
         public async Task GetChoiceAsync()
         {
             if (Choices?.Any() != true)
@@ -40,12 +45,18 @@ namespace WhatsForLunch.Web.Services
                 return;
 
             Choices.Add(choice);
-            NotifyStateChanged();
+            OnChoicesUpdated();
         }
 
         public void RemoveChoice(Choice choice)
         {
             Choices.Remove(choice);
+            OnChoicesUpdated();
+        }
+
+        private void OnChoicesUpdated()
+        {
+            _choiceService.SaveChoicesAsync(Choices);
             NotifyStateChanged();
         }
 

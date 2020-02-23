@@ -15,6 +15,7 @@ namespace WhatsForLunch.Web
 
             builder.Services.AddSingleton<AppState>();
             builder.Services.AddSingleton<IChoiceService, ChoiceService>();
+            builder.Services.AddSingleton<IChoicesRepository, ChoicesRepository>();
 
             await builder.Build().RunAsync();
         }
