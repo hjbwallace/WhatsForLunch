@@ -15,11 +15,17 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.1.101
+        dotnet-version: 3.1.102
 
     - name: Publish with dotnet
       working-directory: ./src
       run: dotnet publish --configuration Release --output build
+      
+    - name: Save the published artifacts when deploying
+      uses: actions/upload-artifact@v1
+      with:
+        name: artifacts
+        path: ./src/build
 
     - name: Deploy the Github Pages
       uses: JamesIves/github-pages-deploy-action@releases/v3
@@ -27,5 +33,5 @@ jobs:
         ACCESS_TOKEN: ${{ secrets.AccessToken }}
         BASE_BRANCH: master 
         BRANCH: gh-pages
-        FOLDER: src/build/WhatsForLunch.Web/dist 
+        FOLDER: src/build/wwwroot
         CLEAN: true
