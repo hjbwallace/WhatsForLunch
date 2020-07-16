@@ -1,14 +1,17 @@
-﻿<div class="row py-4">
-    <div class="col-md-3">
-        <button @onclick="OnChoose" type="button" class="btn btn-primary">
-            Choose
-        </button>
-    </div>
+﻿<div class="text-center">
+    <button @onclick="OnChoose" type="button" class="btn btn-primary btn-lg p-4">
+        Choose
+    </button>
 </div>
 
-<div class="row px-4 py-4">
-    <h4>@(Choice ?? "Press the button to make a choice")</h4>
-</div>
+@if (Choice != null)
+{
+    <h1 class="p-4 text-center">@Choice</h1>
+}
+else
+{
+    <p class="p-4 text-center">Press the button to make a choice</p>
+}
 
 @code
 {

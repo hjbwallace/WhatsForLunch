@@ -1,30 +1,26 @@
-﻿@if (CurrentChoices != null)
-{
-    <div class="row py-3">
-        <ul class="list-group">
-            @foreach (var choice in CurrentChoices)
-            {
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    @choice.Name
-                    <div class=" px-3">
-                        <span class="badge badge-primary badge-pill">@choice.Weighting</span>
-                    </div>
-                    <button @onclick="@(() => OnRemoveChoice.InvokeAsync(choice))" class="badge badge-pill badge-danger btn shadow-none">Remove</button>
-                </li>
-            }
-        </ul>
-    </div>
-}
+﻿<h4>Options</h4>
 
-<div class="row">
-    <input placeholder="Choice" @bind="newChoice" />
-    <input placeholder="Weighting" @bind="newChoiceWeighting" />
-    <button @onclick="AddNewChoice" type="button" class="btn btn-success px-5 search-submit">Add</button>
-</div>
+<table class="table">
+    <tbody>
+        @foreach (var item in CurrentChoices ?? new Choice[0])
+        {
+            <tr>
+                <td style="width: 10px"><button class="btn btn-danger btn-sm" @onclick="@(() => OnRemoveChoice.InvokeAsync(item))">X</button></td>
+                <td style="width: 50%">@item.Name</td>
+                <td style="width: 50px" class="text-right">@item.Weighting</td>
+            </tr>
+        }
+
+        <tr>
+            <td style="width: 10px"><button class="btn btn-success btn-sm" @onclick="@AddNewChoice">+</button></td>
+            <td style="width: 50%"><input class="form-control" type="text" @bind="newChoice.Name" id="example-text-input" placeholder="Option"></td>
+            <td style="width: 50px"><input class="form-control" type="number" @bind="newChoice.Weighting" id="example-text-input" placeholder="5"></td>
+        </tr>
+    </tbody>
+</table>
 
 @code {
-    private string newChoice;
-    private int? newChoiceWeighting;
+    private ChoiceForm newChoice = new ChoiceForm();
 
     [Parameter]
     public IList<Choice> CurrentChoices { get; set; } = new List<Choice>();
@@ -37,10 +33,14 @@
 
     private async Task AddNewChoice()
     {
-        var choice = new Choice { Name = newChoice, Weighting = newChoiceWeighting ?? 0 };
-        newChoice = "";
-        newChoiceWeighting = null;
+        var choice = new Choice
+        {
+            Name = newChoice.Name,
+            Weighting = newChoice.Weighting.Value
+        };
 
         await OnAddChoice.InvokeAsync(choice);
+        newChoice.Name = string.Empty;
+        newChoice.Weighting = null;
     }
 }

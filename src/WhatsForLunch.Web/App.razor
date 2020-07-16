@@ -2,16 +2,19 @@
 
 <div class="container">
 
-    <div id="title" class="row py-4">
+    <div id="title" class="jumbotron text-center">
         <h1>What's For Lunch?</h1>
+        <p>For when you just cant decide what's on the menu!</p>
     </div>
 
-    <div id="choices-area">
-        <Choices CurrentChoices="@state.Choices" OnAddChoice="@state.AddChoice" OnRemoveChoice="@state.RemoveChoice" />
-    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <Choices CurrentChoices="@state.Choices" OnAddChoice="@state.AddChoice" OnRemoveChoice="@state.RemoveChoice" />
+        </div>
 
-    <div id="results-area">
-        <Results Choice="@state.CurrentChoice" OnChoose="@state.GetChoiceAsync" />
+        <div class="col-sm-6">
+            <Results Choice="@state.CurrentChoice" OnChoose="@state.GetChoiceAsync" />
+        </div>
     </div>
 </div>
 
