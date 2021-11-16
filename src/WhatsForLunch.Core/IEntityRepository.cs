@@ -1,10 +1,8 @@
-﻿using System.Threading.Tasks;
-
-namespace WhatsForLunch.Core
+﻿namespace WhatsForLunch.Core
 {
     public interface IEntityRepository<TEntity>
     {
-        Task<TEntity> GetAsync();
+        Task<TEntity?> GetAsync();
 
         Task SaveAsync(TEntity entity);
     }

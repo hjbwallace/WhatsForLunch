@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using WhatsForLunch.Core;
+﻿using WhatsForLunch.Core;
 
 namespace WhatsForLunch.Web.Services
 {
@@ -15,11 +11,11 @@ namespace WhatsForLunch.Web.Services
             _choiceService = choiceService;
         }
 
-        public event Action OnChange;
+        public event Action? OnChange;
 
         public IList<Choice> Choices { get; private set; } = new List<Choice>();
 
-        public string CurrentChoice { get; private set; }
+        public string? CurrentChoice { get; private set; }
 
         public async Task GetExistingChoicesAsync()
         {

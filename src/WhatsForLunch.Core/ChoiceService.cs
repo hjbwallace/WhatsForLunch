@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace WhatsForLunch.Core
+﻿namespace WhatsForLunch.Core
 {
     public class ChoiceService : IChoiceService
     {
@@ -15,7 +11,7 @@ namespace WhatsForLunch.Core
             _choicesRepository = choicesRepository;
         }
 
-        public string MakeChoice(IEnumerable<Choice> choices)
+        public string? MakeChoice(IEnumerable<Choice> choices)
         {
             var choiceList = choices.GetWeightedList();
             var choice = choiceList[_random.Next(0, choiceList.Length)];
@@ -24,7 +20,7 @@ namespace WhatsForLunch.Core
 
         public async Task<IList<Choice>> GetExistingChoicesAsync()
         {
-            return await _choicesRepository.GetAsync();
+            return await _choicesRepository.GetAsync() ?? new List<Choice>();
         }
 
         public async Task SaveChoicesAsync(IList<Choice> choices)

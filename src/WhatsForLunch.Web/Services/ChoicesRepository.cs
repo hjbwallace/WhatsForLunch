@@ -1,5 +1,4 @@
 ﻿using Microsoft.JSInterop;
-using System.Collections.Generic;
 using WhatsForLunch.Core;
 
 namespace WhatsForLunch.Web.Services

@@ -36,7 +36,7 @@
         var choice = new Choice
         {
             Name = newChoice.Name,
-            Weighting = newChoice.Weighting.Value
+            Weighting = newChoice.Weighting.GetValueOrDefault(),
         };
 
         await OnAddChoice.InvokeAsync(choice);

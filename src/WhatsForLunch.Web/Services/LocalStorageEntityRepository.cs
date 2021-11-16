@@ -1,6 +1,5 @@
 ﻿using Microsoft.JSInterop;
 using System.Text.Json;
-using System.Threading.Tasks;
 using WhatsForLunch.Core;
 
 namespace WhatsForLunch.Web.Services
@@ -14,13 +13,13 @@ namespace WhatsForLunch.Web.Services
         private readonly IJSRuntime _js;
         private readonly string _entityKey;
 
-        public LocalStorageEntityRepository(IJSRuntime js, string entityKey = null)
+        public LocalStorageEntityRepository(IJSRuntime js, string? entityKey = null)
         {
             _js = js;
             _entityKey = entityKey ?? typeof(TEntity).Name;
         }
 
-        public virtual async Task<TEntity> GetAsync()
+        public virtual async Task<TEntity?> GetAsync()
         {
             var entityJson = await _js.InvokeAsync<string>(_getItemMethod, _entityKey);
 

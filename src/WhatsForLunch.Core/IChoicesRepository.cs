@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-
-namespace WhatsForLunch.Core
+﻿namespace WhatsForLunch.Core
 {
-    public interface IChoicesRepository : IEntityRepository<IList<Choice>> { }
+    public interface IChoicesRepository : IEntityRepository<IList<Choice>>
+    { }
 }

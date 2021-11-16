@@ -5,7 +5,7 @@ namespace WhatsForLunch.Core
     public class ChoiceForm
     {
         [Required]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [Required]
         [Range(1, 10)]
