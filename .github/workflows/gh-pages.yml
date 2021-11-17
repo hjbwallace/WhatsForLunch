@@ -30,7 +30,7 @@ jobs:
     - name: Deploy the Github Pages
       uses: JamesIves/github-pages-deploy-action@releases/v3
       with: 
-        ACCESS_TOKEN: ${{ secrets.AccessToken }}
+        ACCESS_TOKEN: ${{ secrets.PersonalAccessToken }}
         BASE_BRANCH: master 
         BRANCH: gh-pages
         FOLDER: src/build/wwwroot
